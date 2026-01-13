@@ -54,57 +54,45 @@ class VulnScanPro:
          """
         print(banner)
     
-   def port_scan(self):
-    #  Exploitable Ports (High-Value Targets)
-    exploitable_ports = [
-        # Web Servers (XSS/SQLi/RCE targets)
-        80, 443, 8080, 8443, 8000, 8081, 9000, 3000, 5000,
+      def port_scan(self):
+        # CEH-Approved Exploitable Ports (High-Value Targets)
+        exploitable_ports = [
+            80, 443, 8080, 8443, 8000, 8081, 9000, 3000, 5000,  # Web
+            4848, 9990, 7001, 9060, 9080, 9443, 7777,  # Admin
+            1433, 1434, 3306, 5432, 1521, 27017,       # Database
+            20, 21, 445, 139,                          # File transfer
+            3389, 5900, 22, 23,                        # Remote access
+            25, 465, 587, 993, 995                     # Email
+        ]
         
-        # Admin Panels (Default creds)
-        4848, 9990, 7001, 9060, 9080, 9443, 7777, 8008,
+        print(f"{Colors.CYAN}[*] Scanning {len(exploitable_ports)} exploitable ports on {self.host}...{Colors.END}")
+        open_ports = []
         
-        # Database Servers (SQL Injection)
-        1433, 1434, 3306, 5432, 1521, 27017,
+        def scan_port(port):
+            try:
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(1)
+                result = sock.connect_ex((self.host, port))
+                if result == 0:
+                    open_ports.append(port)
+                    service = self.get_service_name(port)
+                    print(f"{Colors.GREEN}[+] PORT {port:>5} OPEN | {service}{Colors.END}")
+                sock.close()
+            except:
+                pass
         
-        # File Transfer (Brute force)
-        20, 21, 445, 139,
+        with ThreadPoolExecutor(max_workers=100) as executor:
+            executor.map(scan_port, exploitable_ports)
         
-        # Remote Access (RDP/VMware)
-        3389, 5900, 22, 23,
-        
-        # Email Servers (Misconfigs)
-        25, 465, 587, 993, 995,
-        
-        # Dev/Monitoring (Exposed panels)
-        9100, 2375, 2376, 6443
-    ]
-    
-    print(f"{Colors.CYAN}[*] Scanning {len(exploitable_ports)} exploitable ports on {self.host}...{Colors.END}")
-    open_ports = []
-    
-    def scan_port(port):
-        try:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(1)
-            if sock.connect_ex((self.host, port)) == 0:
-                open_ports.append(port)
-                service = self.get_service_name(port)
-                print(f"{Colors.GREEN}[+] PORT {port:>5} OPEN | {service}{Colors.END}")
-            sock.close()
-        except:
-            pass
-    
-    with ThreadPoolExecutor(max_workers=100) as executor:
-        executor.map(scan_port, exploitable_ports)
-    
-    if open_ports:
-        services = [self.get_service_name(p) for p in open_ports]
-        self.findings.append({
-            "type": "Exploitable Ports", 
-            "ports": open_ports,
-            "services": services,
-            "severity": "CRITICAL"
-        })
+        if open_ports:
+            services = [self.get_service_name(p) for p in open_ports]
+            self.findings.append({
+                "type": "Exploitable Ports", 
+                "ports": open_ports,
+                "services": services,
+                "severity": "CRITICAL"
+            })
+
 
     
    def fetch_xss_payloads(self):
@@ -310,5 +298,6 @@ if __name__ == "__main__":
     scanner.run()
     
     print(f"\n{Colors.BOLD}{Colors.PURPLE}Built by Saran{Colors.END}")
+
 
 
