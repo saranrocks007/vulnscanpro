@@ -1,4 +1,4 @@
-# 🔍 saran-vulnscanpro -  Vulnerability Scanner
+# 🔍 vulnscanpro -  Vulnerability Scanner
 
 [![Python](https://img.shields.io/badge/Python-3.6+-3776AB.svg)](https://www.python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
