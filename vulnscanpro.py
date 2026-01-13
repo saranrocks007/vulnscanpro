@@ -51,33 +51,27 @@ class SaranVulnScanPro:
 {Colors.PURPLE}Saran{Colors.END}
         """)
 
-    def get_service_name(self, port):
-        services = {
-            80: "HTTP", 443: "HTTPS", 8080: "HTTP-ALT", 8443: "HTTPS-ALT",
-            21: "FTP", 22: "SSH", 23: "Telnet", 25: "SMTP", 3389: "RDP",
-            445: "SMB", 1433: "MSSQL", 3306: "MySQL", 5432: "PostgreSQL"
-        }
-        return services.get(port, f"TCP-{port}")
+  def port_scan(self):
+    ports = [80, 443, 8080, 8443, 3389, 445, 22, 21, 3306, 1433, 8000, 3000]
+    print(f"{Colors.CYAN}[*] Scanning ports on {self.host}...{Colors.END}")
+    open_ports = []
 
-    def port_scan(self):
-        ports = [80, 443, 8080, 8443, 3389, 445, 22, 21, 3306, 1433, 8000, 3000]
-        print(f"{Colors.CYAN}[*] Scanning ports on {self.host}...{Colors.END}")
-        open_ports = []
+    def scan_port(port):
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(2.5)  # ← FIXED: 2.5s instead of 1s
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # ← NEW
+            result = sock.connect_ex((self.host, port))
+            if result == 0:
+                open_ports.append(port)
+                service = self.get_service_name(port)
+                print(f"{Colors.GREEN}[+] PORT {port:>5} OPEN | {service}{Colors.END}")
+            sock.close()
+        except:
+            pass
 
-        def scan_port(port):
-            try:
-                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                sock.settimeout(1)
-                if sock.connect_ex((self.host, port)) == 0:
-                    open_ports.append(port)
-                    service = self.get_service_name(port)
-                    print(f"{Colors.GREEN}[+] PORT {port:>5} OPEN | {service}{Colors.END}")
-                sock.close()
-            except:
-                pass
-
-        with ThreadPoolExecutor(max_workers=50) as executor:
-            executor.map(scan_port, ports)
+    with ThreadPoolExecutor(max_workers=50) as executor:
+        executor.map(scan_port, ports)
 
         if open_ports:
             self.findings.append({
@@ -229,3 +223,4 @@ if __name__ == "__main__":
     
     scanner = SaranVulnScanPro(args.url, args.threads, args.timeout)
     scanner.run()
+
