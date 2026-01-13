@@ -28,8 +28,8 @@ Production Stats:
 
 bash
 # No dependencies required!
-git clone https://github.com/saransengottuvel/saran-vulnscanpro
-cd saran-vulnscanpro
+git clone https://github.com/saranrocks007/vulnscanpro.git
+cd vulnscanpro
 python vulnscanpro.py --help
 
 Works on:
