@@ -5,7 +5,7 @@
 
 ** web vulnerability scanner | XSS + Directory brute force | Port scanning | Production-ready JSON reports**
 
-## 🚀 Quick Demo (30 Seconds)
+## 🚀 Quick Demo 
 ```bash
 python vulnscanpro.py http://testphp.vulnweb.com
 
