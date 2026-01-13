@@ -86,7 +86,7 @@ optional arguments:
 Custom Payloads File (custom_payloads.json)
 json
 {
-  "xss": ["<script>alert('saran')</script>", "<img src=x onerror=alert(1337)>"],
+  "xss": ["<script>alert('1')</script>", "<img src=x onerror=alert(1337)>"],
   "dirs": ["admin-panel", "dev-api", "staging"],
   "files": ["/.git/HEAD", "/backup-2026.tar.gz"]
 }
