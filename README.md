@@ -100,7 +100,7 @@ json
 {
   "target": "http://testphp.vulnweb.com",
   "timestamp": "2026-01-13T09:20:00Z",
-  "scanner": "saran-vulnscanpro (CEH #ECC7460938521)",
+  "scanner": "vulnscanpro ",
   "findings": [
     {
       "type": "XSS",
