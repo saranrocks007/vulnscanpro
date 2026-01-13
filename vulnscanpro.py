@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
-🔍 saran-vulnscanpro - CEH-Powered Web Vulnerability Scanner
-Built by Saran Sengottuvel (CEH #ECC7460938521)
-GitHub: https://github.com/saransengottuvel/saran-vulnscanpro
+🔍 vulnscanpro -  Web Vulnerability Scanner
+GitHub: https://github.com/saranrocks007/vulnscanpro
 """
 
 import requests
@@ -28,7 +27,7 @@ class Colors:
     BOLD = '\033[1m'
     END = '\033[0m'
 
-class SaranVulnScanPro:
+class VulnScanPro:
     def __init__(self, target_url, threads=10, timeout=5):
         self.target_url = target_url
         self.session = requests.Session()
@@ -50,10 +49,9 @@ class SaranVulnScanPro:
  | |__| | | | | (_| | | |      | | | |__| |
   \\_____|_| |_|\\__,_|_|_|      |_|  \\____/ 
 {Colors.END}
-{Colors.YELLOW}CEH-Powered Web Vulnerability Scanner{Colors.END}
-{Colors.PURPLE}Built by Saran Sengottuvel (CEH #ECC7460938521){Colors.END}
-{Colors.CYAN}ORF Hall of Fame | HackerOne Active{Colors.END}
-        """
+{Colors.YELLOW}Web Vulnerability Scanner{Colors.END}
+    
+         """
         print(banner)
     
     def port_scan(self):
@@ -185,7 +183,8 @@ if __name__ == "__main__":
     parser.add_argument("--timeout", type=int, default=5)
     args = parser.parse_args()
     
-    scanner = SaranVulnScanPro(args.url, args.threads, args.timeout)
+    scanner = VulnScanPro(args.url, args.threads, args.timeout)
     scanner.run()
     
-    print(f"\n{Colors.BOLD}{Colors.PURPLE}Built by Saran Sengottuvel (CEH #ECC7460938521){Colors.END}")
+    print(f"\n{Colors.BOLD}{Colors.PURPLE}Built by Saran{Colors.END}")
+
