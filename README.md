@@ -17,27 +17,28 @@ Feature	Description	Severity Detection
 📄 Sensitive Files	Detects .env, config.php, backup.zip	HIGH
 🛡️ Security Headers	Missing HSTS, XFO, XCTO analysis	MEDIUM
 📊 JSON Reports	SIEM-ready vulnerability reports	Production
-Production Stats:
 
-text
+Production Stats:
 ⚡ Scan Time: <5 seconds
 🎯 XSS Detection: 95% accuracy
 📈 Thread Support: Multi-threaded
 🔒 Zero Dependencies: Python stdlib only
 🐛 Battle-tested: testphp.vulnweb.com
 🛠️ Installation (30 Seconds)
+
 bash
 # No dependencies required!
 git clone https://github.com/saransengottuvel/saran-vulnscanpro
 cd saran-vulnscanpro
 python vulnscanpro.py --help
-Works on:
 
-text
+Works on:
 ✅ Windows | Linux | macOS
 ✅ Python 3.6+
 ✅ Kali Linux | Parrot OS | Ubuntu
 ✅ Zero external libraries
+
+
 🎯 Usage Examples
 1. Basic Quick Scan
 bash
@@ -65,11 +66,12 @@ Flag	Description	Default	Example
 -t, --threads	Number of scan threads	10	-t 20
 --timeout	Request timeout (seconds)	5	--timeout 3
 --help	Show help menu	-	vulnscanpro.py --help
+
 Full Help Output
 bash
 python vulnscanpro.py --help
-text
-saran-vulnscanpro - CEH Web Scanner
+
+vulnscanpro -  Web Scanner
 
 positional arguments:
   url                 Target URL (e.g. http://example.com)
@@ -79,6 +81,7 @@ optional arguments:
   -t THREADS, --threads THREADS
                         Number of threads (default: 10)
   --timeout TIMEOUT   Request timeout in seconds (default: 5)
+
 🔧 Configuration (Optional)
 Custom Payloads File (custom_payloads.json)
 json
